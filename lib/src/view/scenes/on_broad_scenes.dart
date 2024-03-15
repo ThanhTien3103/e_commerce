@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
+import 'package:e_commerce/src/view/scenes/login_scene.dart';
+import 'package:e_commerce/src/view/widgets/button_orange_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../view_models/board_view_model.dart';
-
-
-
 
 class OnBroadScenes extends GetWidget<DotController> {
   const OnBroadScenes({super.key});
@@ -23,7 +21,6 @@ class OnBroadScenes extends GetWidget<DotController> {
   }
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
      return Scaffold(
        body: Obx(() =>
            Column (
@@ -71,17 +68,10 @@ class OnBroadScenes extends GetWidget<DotController> {
                        children: List.generate(3, (index) => buildDot(index: index)),
                      ),
                      const Spacer(),
-                     Container(
-                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 30),
-                       child: CupertinoButton(
-                         color: Colors.deepOrange,
-                         onPressed: () {},
-                         child: const Text(
-                           'Continue',
-                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
-                         ),
-                       ),
-                     )
+                     const Spacer(),
+                     const Spacer(),
+                     ButtonOrange(title: 'Continue', onPress: () { Get.to(const LoginScene()); }),
+                     const Spacer(),
                    ],
                  ),
                )
