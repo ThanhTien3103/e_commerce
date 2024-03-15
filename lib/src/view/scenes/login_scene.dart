@@ -1,3 +1,5 @@
+import 'package:e_commerce/src/repository/user_repository.dart';
+import 'package:e_commerce/src/view/scenes/on_broad_scenes.dart';
 import 'package:e_commerce/src/view/widgets/balloon_icon_widget.dart';
 import 'package:e_commerce/src/view_models/login_view_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,7 +14,24 @@ class LoginScene extends GetWidget<LoginUserViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Obx(() =>
+    controller.isLogin.value?
+    Scaffold(
+      appBar: AppBar(
+        title: const Text('Hello'),
+      ),
+      body: Center(
+        child: ButtonOrange(
+          title: 'Log out',
+          onPress: () {
+            controller.logout();
+            Get.off(const OnBroadScenes().controller.currentPage.value = 0);
+          },
+        ),
+      ),
+    )
+        :
+    Scaffold(
       appBar: AppBar(
         title: const Text('Sign In'),
       ),
@@ -58,21 +77,27 @@ class LoginScene extends GetWidget<LoginUserViewModel> {
                 ],
               ),
             ),
-            ButtonOrange(title: 'Sign In', onPress: () {}),
-            const Row(
+            ButtonOrange(title: 'Sign In', onPress: () {
+              print(controller.isRemember.value);
+              if(controller.isRemember.value) {
+                controller.saveUser();
+              }
+              controller.login();
+            }),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(10),
-                  child: BalloonIconWidget(icons: Icon(Icons.g_mobiledata), label: 'Google'),
+                  padding: const EdgeInsets.all(10),
+                  child: BalloonIconWidget(icons: const Icon(Icons.g_mobiledata), label: 'Google', onPress: () { }),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(10),
-                  child: BalloonIconWidget(icons: Icon(Icons.facebook_outlined), label: 'Facebook'),
+                  padding: const EdgeInsets.all(10),
+                  child: BalloonIconWidget(icons: Icon(Icons.facebook_outlined), label: 'Facebook', onPress: () { },),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(10),
-                  child: BalloonIconWidget(icons: Icon(Icons.filter_vintage_rounded), label: 'Vintage'),
+                  padding: const EdgeInsets.all(10),
+                  child: BalloonIconWidget(icons: Icon(Icons.filter_vintage_rounded), label: 'Vintage', onPress: () { },),
                 ),
               ],
             ),
@@ -89,6 +114,7 @@ class LoginScene extends GetWidget<LoginUserViewModel> {
           ],
         ),
       ),
+    )
     );
   }
 }

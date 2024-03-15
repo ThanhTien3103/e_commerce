@@ -1,6 +1,8 @@
+import 'package:e_commerce/src/view_models/login_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class InputTextFieldWidget extends StatelessWidget {
+class InputTextFieldWidget extends GetWidget<LoginUserViewModel> {
   final String holder;
   final String label;
   final Icon suffixIcon;
@@ -19,7 +21,9 @@ class InputTextFieldWidget extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
       child: TextFormField(
-        onChanged: (value) => {},
+        onChanged: (value) => {
+          controller.inputChanged(label: label, newValue: value)
+        },
         obscureText: isPasswordField,
         decoration: InputDecoration(
           prefix: const SizedBox(width: 30),

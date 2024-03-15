@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 class BalloonIconWidget extends GetWidget {
   final Icon icons;
   final String label;
+  final Function() onPress;
   const BalloonIconWidget({
     super.key,
     required this.icons,
     required this.label,
+    required this.onPress,
   });
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class BalloonIconWidget extends GetWidget {
       ),
       child: Center(
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: onPress,
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.zero,
             shape: const CircleBorder(),

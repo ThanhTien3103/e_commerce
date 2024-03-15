@@ -1,9 +1,13 @@
 import 'package:e_commerce/bindings/binding.dart';
+import 'package:e_commerce/src/utils/user_preferency.dart';
 import 'package:e_commerce/src/view/scenes/on_broad_scenes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
+
+Future main()  async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await UserPreferency.init();
   runApp(const MyApp());
 }
 
