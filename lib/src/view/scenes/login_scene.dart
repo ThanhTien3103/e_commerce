@@ -31,7 +31,6 @@ class LoginScene extends GetWidget<LoginUserViewModel> {
               padding: const EdgeInsets.only(top: 10),
               child: const Text(
                 'Sign in with your email and password or continue with social media',
-                style: TextStyle(),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -43,23 +42,23 @@ class LoginScene extends GetWidget<LoginUserViewModel> {
               ],
             ),
             Padding(
-                padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Row(
                 children: [
-                  Obx(() => Checkbox(value: controller.isRemember.value, onChanged: (newValue) {controller.isRemember.value = newValue!;})),
+                  Obx(() => Checkbox(value: controller.isRemember.value, onChanged: (newValue) {controller.markRemember(value: newValue!);})),
                   const Text('Remember me'),
                   const Spacer(),
-                  CupertinoButton(onPressed: () => {},
-                      child: const Text(
+                  CupertinoButton(
+                    onPressed: () {},
+                    child: const Text(
                       'Forgot Password',
-                        style: TextStyle(decoration: TextDecoration.underline),
-                      )
+                      style: TextStyle(decoration: TextDecoration.underline),
+                    ),
                   ),
                 ],
               ),
             ),
-
-            ButtonOrange(title: 'Sign In', onPress: () {},),
+            ButtonOrange(title: 'Sign In', onPress: () {}),
             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -69,12 +68,12 @@ class LoginScene extends GetWidget<LoginUserViewModel> {
                 ),
                 Padding(
                   padding: EdgeInsets.all(10),
-                  child: BalloonIconWidget(icons: Icon(Icons.facebook_outlined), label: 'facebook'),
+                  child: BalloonIconWidget(icons: Icon(Icons.facebook_outlined), label: 'Facebook'),
                 ),
                 Padding(
                   padding: EdgeInsets.all(10),
-                  child: BalloonIconWidget(icons: Icon(Icons.filter_vintage_rounded), label: 'vintage'),
-                )
+                  child: BalloonIconWidget(icons: Icon(Icons.filter_vintage_rounded), label: 'Vintage'),
+                ),
               ],
             ),
             Row(
@@ -82,16 +81,14 @@ class LoginScene extends GetWidget<LoginUserViewModel> {
               children: [
                 const Text('Don\'t have an account?'),
                 CupertinoButton(
-                  onPressed: () {  },
+                  onPressed: () {},
                   child: const Text('Sign Up'),
-                )
+                ),
               ],
             ),
-            const Spacer(),
           ],
         ),
       ),
     );
   }
 }
-

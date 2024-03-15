@@ -6,6 +6,6 @@ class DependencyBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<DotController>(() => DotController());
-    Get.lazyPut<LoginUserViewModel>(() => LoginUserViewModel());
+    Get.put(LoginUserViewModel());
   }
 }
