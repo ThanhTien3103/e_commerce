@@ -1,5 +1,4 @@
-import 'package:e_commerce/src/repository/user_repository.dart';
-import 'package:e_commerce/src/view/scenes/on_broad_scenes.dart';
+import 'package:e_commerce/src/view/scenes/home_scenes.dart';
 import 'package:e_commerce/src/view/widgets/balloon_icon_widget.dart';
 import 'package:e_commerce/src/view_models/login_view_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,20 +15,7 @@ class LoginScene extends GetWidget<LoginUserViewModel> {
   Widget build(BuildContext context) {
     return Obx(() =>
     controller.isLogin.value?
-    Scaffold(
-      appBar: AppBar(
-        title: const Text('Hello'),
-      ),
-      body: Center(
-        child: ButtonOrange(
-          title: 'Log out',
-          onPress: () {
-            controller.logout();
-            Get.off(const OnBroadScenes().controller.currentPage.value = 0);
-          },
-        ),
-      ),
-    )
+    const HomeScenes()
         :
     Scaffold(
       appBar: AppBar(
@@ -78,7 +64,6 @@ class LoginScene extends GetWidget<LoginUserViewModel> {
               ),
             ),
             ButtonOrange(title: 'Sign In', onPress: () {
-              print(controller.isRemember.value);
               if(controller.isRemember.value) {
                 controller.saveUser();
               }
@@ -93,11 +78,11 @@ class LoginScene extends GetWidget<LoginUserViewModel> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10),
-                  child: BalloonIconWidget(icons: Icon(Icons.facebook_outlined), label: 'Facebook', onPress: () { },),
+                  child: BalloonIconWidget(icons: const Icon(Icons.facebook_outlined), label: 'Facebook', onPress: () { },),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10),
-                  child: BalloonIconWidget(icons: Icon(Icons.filter_vintage_rounded), label: 'Vintage', onPress: () { },),
+                  child: BalloonIconWidget(icons: const Icon(Icons.filter_vintage_rounded), label: 'Vintage', onPress: () { },),
                 ),
               ],
             ),
