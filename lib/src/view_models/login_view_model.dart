@@ -32,8 +32,6 @@ class LoginUserViewModel extends GetxController {
 
   }
   void login() {
-    print(_email);
-    print(_password);
     isLogin.value = UserRepository().loginDefault( username: _email.value.split('@gmail.com').first,
         password: _password.value,
         email: _email.value
