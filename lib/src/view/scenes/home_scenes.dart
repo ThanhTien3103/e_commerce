@@ -1,17 +1,21 @@
 import 'package:e_commerce/src/view/widgets/balloon_icon_widget.dart';
 import 'package:e_commerce/src/view/widgets/card_widget.dart';
+import 'package:e_commerce/src/view_models/home_view_view_model.dart';
+import 'package:e_commerce/src/view_models/login_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import '../widgets/category_card_widget.dart';
 
 
 
 class HomeScenes extends StatelessWidget {
-  const HomeScenes({super.key});
-
+  final controller = Get.find<HomeViewViewModel>();
+  final loginController = Get.find<LoginUserViewModel>();
+  HomeScenes({super.key});
   @override
   Widget build(BuildContext context) {
+    controller.startAutoScroll();
     List<CategoryCardWidget> list = [
       const CategoryCardWidget(icon: Icon(Icons.flash_on_outlined), title: 'Flash Deal'),
       const CategoryCardWidget(icon: Icon(Icons.message), title: 'Bill'),
@@ -69,7 +73,10 @@ class HomeScenes extends StatelessWidget {
                           child: BalloonIconWidget(
                             icons: const Icon(Icons.notifications_active_outlined, size: 30, color: Colors.grey),
                             label: 'Notify',
-                            onPress: () {},
+                            onPress: () {
+                                loginController.logout();
+                                Get.back();
+                              },
                             color: Colors.black12.withOpacity(0.05),
                           ),
                         ),
@@ -85,11 +92,12 @@ class HomeScenes extends StatelessWidget {
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 100,
-                      width: 400,
-                      child: CardWidget(
-                        line: [Text('A Summer Surprise', style: TextStyle(color: Colors.white, fontSize: 14)), Text('CashBack 20%', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold))],
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      height: 120,
+                      width: double.infinity,
+                      child:const CardWidget(
+                        line: [Text('A Summer Surprise', style: TextStyle(color: Colors.white, fontSize: 14)), Text('CashBack 20%', style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold))],
                       ),
                     ),
                     const SizedBox(
@@ -180,13 +188,27 @@ class HomeScenes extends StatelessWidget {
                     Container(
                       height: 250,
                       padding: const EdgeInsets.all(10),
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: listProduct.length,
-                        itemBuilder: (context, index) => Container(
-                          width: 250,
-                          padding: const EdgeInsets.only(left: 20),
-                          child: listProduct[index],
+                      child: NotificationListener<ScrollNotification>(
+                        onNotification: (notification) {
+                          if (notification is ScrollStartNotification) {
+                            controller.handleManualScrollStart();
+                          } else if (notification is ScrollEndNotification) {
+                            controller.handleManualScrollEnd();
+                          }
+                          return false;
+                        },
+                        child: ListView.builder(
+                          controller: controller.scrollController,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: listProduct.length,
+                          itemBuilder: (context, index) => Container(
+                            width: 250,
+                            padding: const EdgeInsets.only(left: 20),
+                            child: GestureDetector(
+                              onTap: () { },
+                              child: listProduct[index],
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -196,7 +218,7 @@ class HomeScenes extends StatelessWidget {
           )
         ],
       ),
-      bottomNavigationBar: Container(
+      bottomNavigationBar: Obx(() => Container(
         padding: const EdgeInsets.only(bottom: 10),
         height: 100,
         width: 300,
@@ -207,13 +229,13 @@ class HomeScenes extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            BalloonIconWidget(icons: const Icon(Icons.home, color: Colors.deepOrange,), label: 'home', onPress: () {}),
-            BalloonIconWidget(icons: const Icon(Icons.favorite_border,  color: Colors.grey), label: 'favorite', onPress: () {}),
-            BalloonIconWidget(icons: const Icon(Icons.message_outlined,  color: Colors.grey), label: 'message', onPress: () {}),
-            BalloonIconWidget(icons: const Icon(Icons.account_circle_outlined,  color: Colors.grey), label: 'account', onPress: () {}),
+            BalloonIconWidget(icons: Icon(Icons.home, color: (controller.currentPage.value == 0)? Colors.deepOrange: Colors.grey,), label: 'home', onPress: () {controller.currentPage.value = 0;}),
+            BalloonIconWidget(icons: Icon(Icons.favorite_border,  color:  (controller.currentPage.value == 1)? Colors.deepOrange: Colors.grey), label: 'favorite', onPress: () {controller.currentPage.value = 1;}),
+            BalloonIconWidget(icons: Icon(Icons.message_outlined,  color:  (controller.currentPage.value == 2)? Colors.deepOrange: Colors.grey), label: 'message', onPress: () {controller.currentPage.value = 2;}),
+            BalloonIconWidget(icons: Icon(Icons.account_circle_outlined,  color:  (controller.currentPage.value == 3)? Colors.deepOrange: Colors.grey), label: 'account', onPress: () {controller.currentPage.value = 3;}),
           ],
         ),
-      ),
+      ),)
     );
   }
 

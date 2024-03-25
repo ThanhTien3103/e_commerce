@@ -17,6 +17,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+         useMaterial3: true,
+      ),
       initialBinding: DependencyBindings(),
       home: const OnBroadScenes(),
     );

@@ -20,9 +20,6 @@ class OnBroadScenes extends GetWidget<DotController> {
     );
   }
 
-  void onPageChanged(int index) {
-    controller.currentPage(index);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +45,7 @@ class OnBroadScenes extends GetWidget<DotController> {
             ),
             Expanded(
               child: PageView(
-                onPageChanged: onPageChanged,
+                onPageChanged: controller.currentPage.call,
                 children: [
                   Image.asset('assets/images/splash_1.png'),
                   Image.asset('assets/images/splash_2.png'),

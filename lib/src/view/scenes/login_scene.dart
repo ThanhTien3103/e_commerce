@@ -15,7 +15,7 @@ class LoginScene extends GetWidget<LoginUserViewModel> {
   Widget build(BuildContext context) {
     return Obx(() =>
     controller.isLogin.value?
-    const HomeScenes()
+    HomeScenes()
         :
     Scaffold(
       appBar: AppBar(
