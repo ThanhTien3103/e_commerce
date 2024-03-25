@@ -38,10 +38,16 @@ class HomeViewViewModel extends GetxController {
       }
     });
   }
+  @override
+  void onClose() {
+    _scrollTimer.cancel();
+    super.onClose();
+  }
   void handleManualScrollStart() {
     manualScrolling.value = true;
+    Timer(const Duration(seconds: 3), () {
+      manualScrolling.value = false;
+    });
   }
-  void handleManualScrollEnd() {
-    manualScrolling.value = false;
-  }
+
 }
