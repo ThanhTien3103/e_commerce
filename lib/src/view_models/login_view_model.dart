@@ -22,7 +22,6 @@ class LoginUserViewModel extends GetxController {
         password: _password.value,
         email: _email.value
     );
-
   }
   void logout() {
     UserRepository().logout();
