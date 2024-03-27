@@ -293,7 +293,7 @@ class HomeScenes extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 20),
                                 child: GestureDetector(
                                   onTap: () {
-                                    Get.to(() => const DetailScenes());
+                                    Get.to(() => DetailScenes());
                                   },
                                   child: listProduct[index],
                                 ));

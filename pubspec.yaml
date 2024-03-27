@@ -69,6 +69,14 @@ flutter:
     - assets/images/Image_Popular_Product_1.png
     - assets/images/Image_Popular_Product_2.png
     - assets/images/Image_Popular_Product_3.png
+    - assets/images/ps4_console_blue_1.png
+    - assets/images/ps4_console_blue_2.png
+    - assets/images/ps4_console_blue_3.png
+    - assets/images/ps4_console_blue_4.png
+    - assets/images/ps4_console_white_1.png
+    - assets/images/ps4_console_white_2.png
+    - assets/images/ps4_console_white_3.png
+    - assets/images/ps4_console_white_4.png
 
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
