@@ -13,9 +13,8 @@ class ButtonOrange extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 300,
-      padding: const EdgeInsets.fromLTRB(0, 10, 0, 30),
       child: CupertinoButton(
         color: Colors.deepOrange,
         onPressed: onPress,

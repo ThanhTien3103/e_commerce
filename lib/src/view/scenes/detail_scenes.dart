@@ -1,8 +1,6 @@
 import 'package:e_commerce/src/view/widgets/button_orange_widget.dart';
 import 'package:e_commerce/src/view_models/detail_model_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class DetailScenes extends StatelessWidget {
@@ -307,8 +305,11 @@ class DetailScenes extends StatelessWidget {
                             color: Colors.white,
                           ),
                           height: 100,
-                          child: ButtonOrange(
-                              title: 'Add To Cart', onPress: () {}),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: ButtonOrange(
+                                title: 'Add To Cart', onPress: () {}),
+                          )
                         ),
                       ),
                     )

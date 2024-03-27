@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/view/scenes/cart_scenes.dart';
 import 'package:e_commerce/src/view/scenes/detail_scenes.dart';
 import 'package:e_commerce/src/view/widgets/balloon_icon_widget.dart';
 import 'package:e_commerce/src/view/widgets/card_widget.dart';
@@ -136,7 +137,7 @@ class HomeScenes extends StatelessWidget {
                               icons: const Icon(Icons.shopping_cart_outlined,
                                   size: 30, color: Colors.grey),
                               label: 'Cart',
-                              onPress: () {},
+                              onPress: () { Get.to(() => CartScenes()); },
                               color: Colors.black12.withOpacity(0.05),
                             ),
                           ),
