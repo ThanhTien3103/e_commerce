@@ -1,6 +1,8 @@
 import 'package:e_commerce/src/view/widgets/button_orange_widget.dart';
+import 'package:e_commerce/src/view_models/cart_view_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../models/product.dart';
 import '../widgets/card_product_cart_widget.dart';
@@ -8,18 +10,8 @@ import '../widgets/card_product_cart_widget.dart';
 class CartScenes extends StatelessWidget {
   CartScenes({super.key});
 
-  Map<String, List<Product>> listInCart = {
-    "Wano Store": [
-      Product('Wire Controller', 'something', 187,
-          'assets/images/Image_Popular_Product_1.png', []),
-      Product('Wire Short', 'something', 287,
-          'assets/images/Image_Popular_Product_2.png', [])
-    ],
-    "Thanh Store": [
-      Product('helmet', 'something', 262,
-          'assets/images/Image_Popular_Product_3.png', [])
-    ]
-  };
+  var controller = Get.find<CartViewViewModel>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +24,7 @@ class CartScenes extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 21),
             ),
             Text(
-              '4 items',
+              '${controller.totalItems} items',
               style: TextStyle(
                   color: Colors.black.withOpacity(0.8),
                   fontSize: 18,
@@ -70,7 +62,6 @@ class CartScenes extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
-                                ''
                                 'Add voucher code ',
                                 style: TextStyle(color: Colors.grey),
                               ),
@@ -91,18 +82,18 @@ class CartScenes extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(20, 30, 20, 10),
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Total: ",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w400),
                       ),
                       Text(
-                        '\$337.15',
-                        style: TextStyle(
+                        '${controller.totalPrice}\$',
+                        style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       )
                     ],
@@ -115,9 +106,9 @@ class CartScenes extends StatelessWidget {
         ),
       ),
       body: ListView.builder(
-        itemCount: listInCart.length,
+        itemCount: controller.listInCart.length,
         itemBuilder: (BuildContext context, int index) {
-          List<String> keys = listInCart.keys.toList();
+          List<String> keys = controller.listInCart.keys.toList();
           return Container(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -131,12 +122,46 @@ class CartScenes extends StatelessWidget {
                 ),
                 ListView.builder(
                   shrinkWrap: true,
-                  itemCount: listInCart[keys[index]]?.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: controller.listInCart[keys[index]]?.length,
                   itemBuilder: (BuildContext context, int inx) {
-                    return Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: CardProductCartWidget(
-                          product: listInCart[keys[index]]![inx]),
+                    return Stack(
+                      children: [
+                        GestureDetector(
+                          onHorizontalDragUpdate: (details) {
+                            if (details.delta.dx < 0) {
+                              controller.changeState(true);
+                            } else if (details.delta.dx > 0) {
+                              controller.changeState(false);
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: CardProductCartWidget(
+                                product: controller.listInCart[keys[index]]![inx]),
+                          ),
+                        ),
+                        Obx(
+                          () => Positioned(
+                            bottom: 10,
+                            right: 0,
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              width: controller.canRemove.value ? 60 : 0,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.red.withOpacity(0.7),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: const Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                                size: 50,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
                     );
                   },
                 ),
